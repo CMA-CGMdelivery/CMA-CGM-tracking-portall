@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fictional Cargo Tracker</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f6fa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #005bac;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+    .result {
+      margin-top: 30px;
+      display: none;
+      background: #e6f2ff;
+      padding: 20px;
+      border-radius: 6px;
+      border: 1px solid #b3d9ff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table th, table td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    #qrcode {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Fictional Logistics Tracker</h2>
+  </header>
+  <div class="container">
+    <h1>Track Your Shipment</h1>
+    <input type="text" id="trackingInput" placeholder="Enter tracking code (e.g., FIC123456)">
+    <button onclick="trackPackage()">Track Package</button>
+
+    <div class="result" id="trackingResult">
+      <h3>Shipment Details</h3>
+      <p><strong>Tracking Code:</strong> <span id="trackCode"></span></p>
+      <p><strong>Estimated Delivery:</strong> June 12, 2025</p>
+      <p><strong>Status:</strong> In Transit – En Route to PERU</p>
+
+      <table>
+        <tr><th>Sender</th><td>Min Jun, London<br>📧 mjun2327@gmail.com<br>📞 +44 7985 293148</td></tr>
+        <tr><th>Receiver</th><td>Leydi Liz Cárdenas Valdivieso, PERU<br>📧 Lcardenas16@gmail.com<br>📞 +51 944 910 824</td></tr>
+        <tr><th>Address</th><td>AV. SALAVERRY 801, JESUS MARIA, LIMA, PERU</td></tr>
+        <tr><th>Package Weight</th><td>23 kg</td></tr>
+        <tr><th>Transportation Mode</th><td>Freight</td></tr>
+      </table>
+
+      <div id="qrcode"></div>
+    </div>
+  </div>
+
+  <script>
+    function trackPackage() {
+      const code = document.getElementById("trackingInput").value.trim();
+      const resultBox = document.getElementById("trackingResult");
+      const trackCodeField = document.getElementById("trackCode");
+      const qrcodeContainer = document.getElementById("qrcode");
+      qrcodeContainer.innerHTML = ""; // clear previous QR codes
+
+      if (code === "FIC123456") {
+        trackCodeField.textContent = code;
+        resultBox.style.display = "block";
+
+        new QRCode(qrcodeContainer, {
+          text: `https://yourdomain.com/track?code=${code}`,
+          width: 128,
+          height: 128,
+        });
+      } else {
+        resultBox.style.display = "none";
+        alert("Tracking code not found. Please enter a valid code (e.g., FIC123456).");
+      }
+    }
+  </script>
+</body>
+</html>
